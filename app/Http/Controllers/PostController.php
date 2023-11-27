@@ -20,9 +20,10 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
-        Task::create($request->validate([
+        Post::create($request->validate([
             'title' => 'required|string|max:255',
             'content' => 'nullable|string',
+            'user_id' => 'required|exists:users,id',
         ]));
 
         return redirect()->route('posts.index');

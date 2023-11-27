@@ -6,9 +6,9 @@
     </x-slot>
  
     <div class="py-12">
-        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-            <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                <div class="overflow-hidden overflow-x-auto border-b border-gray-200 bg-white p-6">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                <div class="max-w-xl">
                     <form action="{{ route('posts.store') }}" method="POST">
                         @csrf
  
@@ -20,11 +20,12 @@
 
                         <div>
                             <x-input-label for="content" value="Content" />
-                            <textarea id="content" name="content" class="block mt-1 w-full">{{ old('content') }}</textarea>
+                            <textarea id="content" name="content" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">{{ old('content') }}</textarea>
                             <x-input-error :messages="$errors->get('content')" class="mt-2" />
                         </div>
  
                         <div class="mt-4">
+                            <input type="hidden" name="user_id" value="{{ auth()->id() }}">
                             <x-primary-button>
                                 Save
                             </x-primary-button>
