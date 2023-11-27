@@ -4,12 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::latest()->get();
+        $user = Auth::user();
+        if(in_array("admin", $user->getRoleNames()->toArray()))
+            $posts = Post::latest()->paginate(2);
+        else
+            $posts = Post::where('user_id', auth()->id())->paginate(2);
         return view('posts.index', compact('posts'));
     }
 

@@ -66,6 +66,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        {{ $posts->withQueryString()->links() }}
                     </div>
                     @endif
                 </div>
