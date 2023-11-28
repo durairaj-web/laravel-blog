@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules;
 
 class UserController extends Controller
 {
@@ -21,7 +22,9 @@ class UserController extends Controller
     public function store(Request $request)
     {
         User::create($request->validate([
-            'name' => 'required|string|max:255'
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => ['required', 'confirmed', Rules\Password::defaults()]
         ]));
 
         return redirect()->route('users.index');
@@ -35,7 +38,9 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $post->update($request->validate([
-            'name' => 'required|string|max:255'
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => ['required', 'confirmed', Rules\Password::defaults()]
         ]));
 
         return redirect()->route('users.index');
